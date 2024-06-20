@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz o Andrzeju</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .question {
+            margin-bottom: 15px;
+        }
+        .result {
+            display: none;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e0ffe0;
+            border: 1px solid #00b300;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Quiz o Andrzeju</h1>
+        <form id="quizForm">
+            <div class="question">
+                <label>Ile ma lat?</label><br>
+                <input type="number" name="q1">
+            </div>
+            <div class="question">
+                <label>Jakie ma zwierzę?</label><br>
+                <input type="text" name="q2">
+            </div>
+            <div class="question">
+                <label>Jak się wabi jego pies?</label><br>
+                <input type="text" name="q3">
+            </div>
+            <div class="question">
+                <label>W jakim miesiącu ma urodziny?</label><br>
+                <input type="text" name="q4">
+            </div>
+            <div class="question">
+                <label>Wymień jego dwóch top wykonawców.</label><br>
+                <input type="text" name="q5">
+            </div>
+            <div class="question">
+                <label>Jakie charakterystyczne buty nosi?</label><br>
+                <input type="text" name="q6">
+            </div>
+            <div class="question">
+                <label>Czego nie ma?</label><br>
+                <input type="text" name="q7">
+            </div>
+            <div class="question">
+                <label>Co Andrzej trenuje?</label><br>
+                <input type="text" name="q8">
+            </div>
+            <div class="question">
+                <label>W jakim klubie grał?</label><br>
+                <input type="text" name="q9">
+            </div>
+            <div class="question">
+                <label>Jaką ksywkę ma Andrzej?</label><br>
+                <input type="text" name="q10">
+            </div>
+            <button type="button" onclick="submitQuiz()">Zakończ Quiz</button>
+        </form>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function submitQuiz() {
+            const answers = {
+                q1: '15',
+                q2: 'pies',
+                q3: 'ajka',
+                q4: 'czerwcu',
+                q5: ['nemzz', 'travis scott'],
+                q6: 'nikex travis scott canary',
+                q7: 'rizzu',
+                q8: 'muay thai',
+                q9: 'korona zakrzewo',
+                q10: ['ajka', 'jądrus']
+            };
+
+            let score = 0;
+            const form = document.getElementById('quizForm');
+            const resultDiv = document.getElementById('result');
+
+            const formData = new FormData(form);
+
+            formData.forEach((value, key) => {
+                if (key === 'q5' || key === 'q10') {
+                    const userAnswers = value.toLowerCase().split(',').map(s => s.trim());
+                    if (userAnswers.every(ans => answers[key].includes(ans))) {
+                        score++;
+                    }
+                } else if (value.toLowerCase() === answers[key]) {
+                    score++;
+                }
+            });
+
+            resultDiv.innerHTML = `Twój wynik: ${score}/10<br><br>`;
+            resultDiv.innerHTML += `Poprawne odpowiedzi:<br>`;
+            resultDiv.innerHTML += `1. 15 lat<br>`;
+            resultDiv.innerHTML += `2. Pies<br>`;
+            resultDiv.innerHTML += `3. Ajka<br>`;
+            resultDiv.innerHTML += `4. W czerwcu<br>`;
+            resultDiv.innerHTML += `5. Nemzz, Travis Scott<br>`;
+            resultDiv.innerHTML += `6. Nikex Travis Scott Canary<br>`;
+            resultDiv.innerHTML += `7. Rizzu<br>`;
+            resultDiv.innerHTML += `8. Muay Thai<br>`;
+            resultDiv.innerHTML += `9. Korona Zakrzewo<br>`;
+            resultDiv.innerHTML += `10. Ajka lub Jądrus<br>`;
+
+            resultDiv.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
